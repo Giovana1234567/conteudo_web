@@ -1,0 +1,19 @@
+# IDEs e Sistema
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependências e builds (fallback de segurança)
+**/node_modules/
+**/dist/
+**/coverage/
+
+# Arquivos de ambiente locais ativos (devem ser mantidos fora do controle de versão)
+**/projeto-de-consulta/.env
+**/Materiais de aula/14/.env
+**/.env
