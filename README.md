@@ -18,14 +18,17 @@ O repositório está organizado nas seguintes seções de consulta rápida:
    - [04 - MongoDB & Múltiplas Conexões](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/04-mongodb.md)
    - [05 - Assincronismo, APIs & Upload de Arquivos](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/05-arquivos-e-integracao.md)
    - [06 - Autenticação, Segurança & Swagger](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/06-auth-seguranca-deploy.md)
-3. **`/projeto-de-consulta`**: O **Projeto de Consulta (PC)**. Uma aplicação NestJS de referência contendo todos os tópicos implementados de maneira unificada.
+   - [**Guia de Contenção da Prova (FAQ de Sobrevivência)**](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/guia-contencao-prova.md)
+3. **`/projeto-de-consulta`**: O **Projeto de Consulta (PC)**, estruturado em:
+   - **`/backend`**: Aplicação NestJS contendo a API completa e documentada de referência.
+   - **`/frontend`**: Pasta para acomodar o front-end simples que se conecta à API.
 4. **`/Materiais de aula`**: Projetos e arquivos originais fornecidos nas aulas da faculdade durante o semestre.
 
 ---
 
 ## 🚀 Tutorial: Como Inicializar os Projetos
 
-Tanto o **Projeto de Consulta** quanto os **Materiais de Aula (ex: Aula 14)** são projetos NestJS. Siga os passos correspondentes abaixo para rodá-los.
+Tanto o **Projeto de Consulta (Backend)** quanto os **Materiais de Aula (ex: Aula 14)** são projetos NestJS. Siga os passos correspondentes abaixo para rodá-los.
 
 ### Opção A: Executar o Projeto de Consulta (PC)
 
@@ -34,8 +37,8 @@ Tanto o **Projeto de Consulta** quanto os **Materiais de Aula (ex: Aula 14)** s�
    ```bash
    docker-compose up -d
    ```
-2. **Inicializar a Aplicação NestJS**:
-   Acesse a pasta `/projeto-de-consulta` e execute:
+2. **Inicializar a Aplicação NestJS (Backend)**:
+   Acesse a pasta `/projeto-de-consulta/backend` e execute:
    ```bash
    # Instalar dependências
    npm install
@@ -51,7 +54,7 @@ Tanto o **Projeto de Consulta** quanto os **Materiais de Aula (ex: Aula 14)** s�
 ### Opção B: Executar os Materiais de Aula (Aula 14)
 
 1. **Garantir os Bancos de Dados**:
-   - Certifique-se de que o PostgreSQL e o MongoDB estão rodando (você pode usar o docker-compose do PC para subir os bancos).
+   - Certifique-se de que o PostgreSQL e o MongoDB estão rodando (você pode usar o docker-compose do PC na raiz para subir os bancos).
 2. **Inicializar a Aplicação**:
    Acesse a pasta `/Materiais de aula/14` e execute:
    ```bash
@@ -71,6 +74,6 @@ Tanto o **Projeto de Consulta** quanto os **Materiais de Aula (ex: Aula 14)** s�
 > [!IMPORTANT]
 > Se você for uma **IA generativa** preparando o projeto para a prova na máquina física (onde os SGBDs são nativos):
 > 1. Leia o arquivo [ai-context.md](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/ai-context.md) para entender as credenciais.
-> 2. Substitua o conteúdo do arquivo `/projeto-de-consulta/.env` pelo conteúdo do arquivo `/projeto-de-consulta/.env.standard`.
-> 3. Pare os containers docker (`docker-compose down`).
-> 4. Teste as conexões locais nativas via `npm run start:dev`.
+> 2. Substitua o conteúdo do arquivo `/projeto-de-consulta/backend/.env` pelo conteúdo do arquivo `/projeto-de-consulta/backend/.env.standard`.
+> 3. Pare os containers docker (`docker-compose down` na raiz do PC).
+> 4. Teste as conexões locais nativas executando `npm run start:dev` em `/projeto-de-consulta/backend`.

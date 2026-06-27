@@ -27,7 +27,7 @@ Este repositório foi construído para servir de material de consulta completo e
 ## 2. A Estrutura do Repositório
 - `/Materiais de aula/`: Códigos fornecidos originalmente durante o semestre.
 - `/guides/`: Resumos rápidos da teoria e dos comandos mais comuns para consulta rápida.
-- `/projeto-de-consulta/` (PC): Um projeto NestJS contendo a aplicação de referência prática contendo todas as técnicas descritas no cronograma, configurado para rodar localmente no Docker e facilmente conversível.
+- `/projeto-de-consulta/` (PC): O Projeto de Consulta unificado, contendo a API NestJS em `/backend/` e a pasta `/frontend/` vazia.
 
 ---
 
@@ -35,8 +35,8 @@ Este repositório foi construído para servir de material de consulta completo e
 
 ### Cenário de Estudos (Atual)
 Para viabilizar o desenvolvimento local do aluno sem necessidade de instalar localmente os bancos de dados, configuramos um ambiente baseado em **Docker**:
-- O projeto NestJS aponta para os bancos do Docker por meio das variáveis no arquivo `.env` (que recebe o conteúdo de `.env.docker`).
-- PostgreSQL e MongoDB são gerenciados pelo arquivo `docker-compose.yml`.
+- O projeto NestJS em `/backend/` aponta para os bancos do Docker por meio das variáveis no arquivo `.env` (que recebe o conteúdo de `.env.docker`).
+- PostgreSQL e MongoDB são gerenciados pelo arquivo `docker-compose.yml` na raiz de `/projeto-de-consulta/`.
 
 ### Cenário da Prova
 Na prova, a execução dos bancos de dados será **nativa na máquina física** (executando diretamente como serviço do Windows), utilizando as instalações e portas padrão do SGBD.
@@ -45,14 +45,14 @@ Na prova, a execução dos bancos de dados será **nativa na máquina física** 
 Antes da prova, a IA generativa em atendimento deve realizar a reversão do projeto para as configurações padrão locais. Siga os passos:
 
 1. **Substituir o arquivo de ambiente**:
-   - Sobrescreva o conteúdo do arquivo `/projeto-de-consulta/.env` com o conteúdo do arquivo `/projeto-de-consulta/.env.standard`.
+   - Sobrescreva o conteúdo do arquivo `/projeto-de-consulta/backend/.env` com o conteúdo do arquivo `/projeto-de-consulta/backend/.env.standard`.
 2. **Confirmar as portas e credenciais padrão**:
    - **PostgreSQL**: host `localhost`, porta `5432`, usuário `postgres`, senha vazia ou a padrão de instalação local.
    - **MongoDB**: host `localhost`, porta `27017`, banco `programacaoweb` (sem usuário/senha caso seja instalação padrão simples).
 3. **Desativar Docker**:
-   - Não iniciar o container docker e garantir que a aplicação NestJS em `/projeto-de-consulta` se conecte diretamente nas portas nativas da máquina host.
+   - Não iniciar o container docker e garantir que a aplicação NestJS em `/projeto-de-consulta/backend` se conecte diretamente nas portas nativas da máquina host.
 4. **Verificar Conexões**:
-   - Rodar `npm run start:dev` e validar se o NestJS inicializa com sucesso apontando para os serviços instalados localmente no Windows.
+   - Rodar `npm run start:dev` em `/projeto-de-consulta/backend` e validar se o NestJS inicializa com sucesso apontando para os serviços instalados localmente no Windows.
 
 ---
 
