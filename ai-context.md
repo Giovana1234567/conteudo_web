@@ -11,6 +11,8 @@ Este repositório foi construído para servir de material de consulta completo e
 - **Tempo Limitado**: Todas as explicações em arquivos de código ou guias devem ser **curtas, objetivas e diretas ao ponto**.
 - **Foco em Integração**: O professor costuma cobrar questões abrangentes conectando conceitos (ex: autenticação JWT no backend ligada a um frontend que renderiza uma página de dashboard após o login, tratando CORS).
 - **Materiais de Aula**: Os arquivos originais da disciplina estão sob a pasta `/Materiais de aula` e devem ser mantidos e respeitados, servindo de base direta para as soluções.
+- **Conectividade e Logs de Fluxo**: Todo o código do projeto de consulta deve conter comentários de fluxo explicando o que faz, como ele se conecta ao restante do sistema (ex: "X módulo é usado para tal coisa, é importado em Y para realizar a função Z"), e possuir logs de console (`console.log`) para depurar facilmente a execução dos métodos no terminal.
+- **Testes por Linha de Comando (CLI)**: A forma preferencial e padrão de testes deve ser via Linha de Comando (CLI) (comandos cURL ou similares), os quais devem estar documentados no README e nos guias para permitir validação rápida.
 
 ---
 
