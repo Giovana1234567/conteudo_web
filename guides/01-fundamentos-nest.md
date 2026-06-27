@@ -166,3 +166,28 @@ export class ItemsController {
   }
 }
 ```
+
+---
+
+## 6. Como Testar via cURL (Linha de Comando)
+Você pode testar esses tipos de rotas e parâmetros rodando comandos cURL no terminal (Powershell ou CMD):
+
+```bash
+# 1. Testar GET com Query Parameter (?categoria=computador)
+curl -X GET "http://localhost:3000/items?categoria=computador"
+
+# 2. Testar GET com Router Parameter (ID = 123)
+curl -X GET "http://localhost:3000/items/123"
+
+# 3. Testar POST com JSON no Body (Payload)
+curl -X POST "http://localhost:3000/items" -H "Content-Type: application/json" -d "{\"nome\":\"Teclado\",\"preco\":150}"
+
+# 4. Testar PUT com JSON no Body (Atualização Total)
+curl -X PUT "http://localhost:3000/items/123" -H "Content-Type: application/json" -d "{\"nome\":\"Mouse\",\"preco\":80}"
+
+# 5. Testar PATCH com JSON no Body (Atualização Parcial)
+curl -X PATCH "http://localhost:3000/items/123" -H "Content-Type: application/json" -d "{\"preco\":75}"
+
+# 6. Testar DELETE com Router Parameter
+curl -X DELETE "http://localhost:3000/items/123"
+```
