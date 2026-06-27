@@ -32,7 +32,6 @@ export class UserService {
       select: {
         id: true,
         name: true,
-        email: true,
         status: true,
       },
     });
@@ -57,7 +56,7 @@ export class UserService {
   }
 
   async create(body: CreateUserDto): Promise<any> {
-    console.log(`[USER SERVICE] Tentando criar novo usuário: ${body.email}`);
+    console.log(`[USER SERVICE] Tentando criar novo usuário: ${body.name}`);
     const user = this.userRepository.create(body);
     const savedUser = await this.userRepository.save(user);
     console.log(`[USER SERVICE] Usuário criado com sucesso. ID: ${savedUser.id}`);
