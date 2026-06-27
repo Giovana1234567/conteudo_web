@@ -2,44 +2,67 @@
 
 Este repositório contém todo o material de estudo e de consulta para a realização da prova de **Programação Web II** do curso de Sistemas de Informação da ESUCRI.
 
+Por padrão, as pastas `node_modules/` e `dist/` estão **excluídas do controle de versão (Git)** para manter o repositório leve. Você deve instalar as dependências localmente antes de rodar os projetos.
+
 ---
 
 ## 📌 Guia do Repositório
 
 O repositório está organizado nas seguintes seções de consulta rápida:
 
-1. **[ai-context.md](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/ai-context.md)**: Documento central de contexto do projeto. **Sempre lido por padrão pelas IAs generativas** no início de cada chat para entender as regras da prova, cronograma de assuntos e o procedimento de reversão de banco de dados.
+1. **[ai-context.md](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/ai-context.md)**: Documento central de contexto do projeto. **Sempre lido por padrão pelas IAs generativas** no início de cada chat.
 2. **`/guides`**: Resumos e guias teóricos concisos e objetivos:
-   - [01 - Fundamentos NestJS & Requisições HTTP](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/01-fundamentos-nest.md) (CLI, `main.ts`, Decorators, Router/Query Params).
-   - [02 - Validação de Entrada & Erros](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/02-validacao-erros.md) (DTOs, `ValidationPipe`, class-validator, `HttpException`).
-   - [03 - PostgreSQL com TypeORM](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/03-postgres-typeorm.md) (Entities, CRUD, Relacionamentos ManyToOne/OneToMany, `relations`).
-   - [04 - MongoDB & Múltiplas Conexões](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/04-mongodb.md) (ObjectIdColumn, subdocumentos, aggregate, conexões simultâneas).
-   - [05 - Assincronismo, APIs & Upload de Arquivos](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/05-arquivos-e-integracao.md) (Consumo de API ViaCEP, single/multiple upload).
-   - [06 - Autenticação, Segurança & Swagger](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/06-auth-seguranca-deploy.md) (CORS, JWT Guards, Nodemailer, Config, Swagger UI).
-3. **`/projeto-de-consulta`**: O **Projeto de Consulta (PC)**. Uma aplicação NestJS de referência contendo todos os tópicos implementados de maneira unificada e pronta para execução.
+   - [01 - Fundamentos NestJS & Requisições HTTP](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/01-fundamentos-nest.md)
+   - [02 - Validação de Entrada & Erros](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/02-validacao-erros.md)
+   - [03 - PostgreSQL com TypeORM](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/03-postgres-typeorm.md)
+   - [04 - MongoDB & Múltiplas Conexões](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/04-mongodb.md)
+   - [05 - Assincronismo, APIs & Upload de Arquivos](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/05-arquivos-e-integracao.md)
+   - [06 - Autenticação, Segurança & Swagger](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/06-auth-seguranca-deploy.md)
+3. **`/projeto-de-consulta`**: O **Projeto de Consulta (PC)**. Uma aplicação NestJS de referência contendo todos os tópicos implementados de maneira unificada.
 4. **`/Materiais de aula`**: Projetos e arquivos originais fornecidos nas aulas da faculdade durante o semestre.
 
 ---
 
-## 🚀 Como Executar o Projeto de Consulta (PC)
+## 🚀 Tutorial: Como Inicializar os Projetos
 
-### Passo 1: Subir os Bancos de Dados de Estudos (via Docker)
-Para facilitar os estudos locais, o banco PostgreSQL e o MongoDB estão configurados para subir via Docker. Acesse a pasta `/projeto-de-consulta` e execute:
-```bash
-docker-compose up -d
-```
+Tanto o **Projeto de Consulta** quanto os **Materiais de Aula (ex: Aula 14)** são projetos NestJS. Siga os passos correspondentes abaixo para rodá-los.
 
-### Passo 2: Inicializar o Servidor NestJS
-1. Instale as dependências:
+### Opção A: Executar o Projeto de Consulta (PC)
+
+1. **Subir os Bancos de Dados locais (via Docker)**:
+   Acesse a pasta `/projeto-de-consulta` no terminal e execute:
    ```bash
-   npm install
+   docker-compose up -d
    ```
-2. Inicialize a aplicação:
+2. **Inicializar a Aplicação NestJS**:
+   Acesse a pasta `/projeto-de-consulta` e execute:
    ```bash
+   # Instalar dependências
+   npm install
+   
+   # Iniciar em modo de desenvolvimento
    npm run start:dev
    ```
-3. Acesse a documentação interativa Swagger:
-   [http://localhost:3007/api](http://localhost:3007/api)
+3. **Testar**:
+   - Acesso ao Swagger: [http://localhost:3007/swagger](http://localhost:3007/swagger)
+
+---
+
+### Opção B: Executar os Materiais de Aula (Aula 14)
+
+1. **Garantir os Bancos de Dados**:
+   - Certifique-se de que o PostgreSQL e o MongoDB estão rodando (você pode usar o docker-compose do PC para subir os bancos).
+2. **Inicializar a Aplicação**:
+   Acesse a pasta `/Materiais de aula/14` e execute:
+   ```bash
+   # Instalar dependências
+   npm install
+   
+   # Iniciar em modo de desenvolvimento
+   npm run start:dev
+   ```
+3. **Testar**:
+   - Acesso ao Swagger: [http://localhost:3005/swagger](http://localhost:3005/swagger)
 
 ---
 
