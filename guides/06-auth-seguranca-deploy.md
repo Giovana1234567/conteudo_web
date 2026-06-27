@@ -66,14 +66,14 @@ npm install --save @nestjs/jwt passport-jwt @nestjs/passport passport
 npm install --save-dev @types/passport-jwt
 ```
 
-### Módulo de Autenticação (`auth.module.ts`)
+### Módulo de Autenticação (`autenticacao.module.ts`)
 ```typescript
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { JwtStrategy } from './jwt.strategy';
+import { AutenticacaoService } from './autenticacao.service';
+import { AutenticacaoController } from './autenticacao.controller';
+import { JwtEstrategia } from './jwt.estrategia';
 
 @Module({
   imports: [
@@ -83,20 +83,20 @@ import { JwtStrategy } from './jwt.strategy';
       signOptions: { expiresIn: '1d' }, // Token expira em 1 dia
     }),
   ],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController],
+  providers: [AutenticacaoService, JwtEstrategia],
+  controllers: [AutenticacaoController],
 })
-export class AuthModule {}
+export class AutenticacaoModule {}
 ```
 
-### Estratégia JWT (`jwt.strategy.ts`)
+### Estratégia JWT (`jwt.estrategia.ts`)
 ```typescript
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtEstrategia extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extrai o token do Header: Bearer <Token>
@@ -150,13 +150,13 @@ npm install --save nodemailer
 npm install --save-dev @types/nodemailer
 ```
 
-### Serviço de E-mail (`mailer.service.ts`)
+### Serviço de E-mail (`email.service.ts`)
 ```typescript
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 
 @Injectable()
-export class MailerService {
+export class EmailService {
   private transporter: nodemailer.Transporter;
 
   constructor() {

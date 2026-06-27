@@ -10,7 +10,7 @@ No NestJS, erros devem ser lançados usando exceções nativas. O framework capt
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class UserService {
+export class UsuarioService {
   buscarPorId(id: number) {
     const usuario = null; // Simulação
     if (!usuario) {
@@ -80,11 +80,11 @@ bootstrap();
 
 ## 4. Criando e Validando DTOs
 
-### Exemplo de DTO de Criação (`create-user.dto.ts`)
+### Exemplo de DTO de Criação (`criar-usuario.dto.ts`)
 ```typescript
 import { IsString, IsEmail, IsInt, MinLength, MaxLength } from 'class-validator';
 
-export class CreateUserDto {
+export class CriarUsuarioDto {
   @IsString()
   @MinLength(3, { message: 'O nome deve ter no mínimo 3 caracteres' })
   nome: string;
@@ -100,13 +100,13 @@ export class CreateUserDto {
 No Controller:
 ```typescript
 import { Controller, Post, Body } from '@nestjs/common';
-import { CreateUserDto } from './dtos/create-user.dto';
+import { CriarUsuarioDto } from './dtos/criar-usuario.dto';
 
-@Controller('users')
-export class UserController {
+@Controller('usuario')
+export class UsuarioController {
   @Post()
-  criar(@Body() createUserDto: CreateUserDto) {
-    return createUserDto; // Dados já validados e tipados
+  criar(@Body() criarUsuarioDto: CriarUsuarioDto) {
+    return criarUsuarioDto; // Dados já validados e tipados
   }
 }
 ```
@@ -121,11 +121,11 @@ Para a rota de atualização parcial (PATCH), geralmente os campos são opcionai
 npm i --save @nestjs/mapped-types
 ```
 
-### Exemplo de DTO de Atualização (`update-user.dto.ts`)
+### Exemplo de DTO de Atualização (`atualizar-usuario.dto.ts`)
 ```typescript
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateUserDto } from './create-user.dto';
+import { CriarUsuarioDto } from './criar-usuario.dto';
 
-// O PartialType faz com que todos os campos do CreateUserDto fiquem opcionais
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+// O PartialType faz com que todos os campos do CriarUsuarioDto fiquem opcionais
+export class AtualizarUsuarioDto extends PartialType(CriarUsuarioDto) {}
 ```

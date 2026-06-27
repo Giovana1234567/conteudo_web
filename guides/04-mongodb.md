@@ -62,7 +62,7 @@ export class Telefone {
 }
 
 @Entity('estudantes')
-export class Estudante {
+export class EstudanteEntity {
   @ObjectIdColumn() // Coluna de chave primária padrão do Mongo (_id)
   _id: ObjectId;
 
@@ -86,12 +86,12 @@ Ao utilizar múltiplas conexões e o MongoDB, precisamos especificar o nome da c
 ```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Estudante } from './entities/estudante.entity';
+import { EstudanteEntity } from './entities/estudante.entity';
 import { EstudanteService } from './estudante.service';
 
 @Module({
   // Importante: Passar o nome da conexão MongoDB no segundo argumento do forFeature
-  imports: [TypeOrmModule.forFeature([Estudante], 'mongoConnection')],
+  imports: [TypeOrmModule.forFeature([EstudanteEntity], 'mongoConnection')],
   providers: [EstudanteService],
 })
 export class EstudanteModule {}
@@ -105,18 +105,18 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { ObjectId } from 'mongodb';
-import { Estudante } from './entities/estudante.entity';
+import { EstudanteEntity } from './entities/estudante.entity';
 
 @Injectable()
 export class EstudanteService {
   constructor(
     // Especificar a conexão do MongoDB na injeção
-    @InjectRepository(Estudante, 'mongoConnection')
-    private readonly estudanteRepository: MongoRepository<Estudante>,
+    @InjectRepository(EstudanteEntity, 'mongoConnection')
+    private readonly estudanteRepository: MongoRepository<EstudanteEntity>,
   ) {}
 
   // 1. Buscar estudante por ID (Convertendo string para ObjectId)
-  async buscarPorId(id: string): Promise<Estudante> {
+  async buscarPorId(id: string): Promise<EstudanteEntity> {
     if (!ObjectId.isValid(id)) {
       throw new NotFoundException('ID do MongoDB inválido');
     }
@@ -128,13 +128,13 @@ export class EstudanteService {
   }
 
   // 2. Criar Estudante
-  async criar(dados: any): Promise<Estudante> {
+  async criar(dados: any): Promise<EstudanteEntity> {
     const novoEstudante = this.estudanteRepository.create(dados);
     return await this.estudanteRepository.save(novoEstudante);
   }
 
   // 3. Atualizar Estudante
-  async atualizar(id: string, dados: any): Promise<Estudante> {
+  async atualizar(id: string, dados: any): Promise<EstudanteEntity> {
     const estudante = await this.buscarPorId(id);
     const estudanteAtualizado = this.estudanteRepository.merge(estudante, dados);
     return await this.estudanteRepository.save(estudanteAtualizado);

@@ -27,7 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,      // Sincroniza tabelas no banco (NÃO usar em produção)
     }),
   ],
-})
+ })
 export class AppModule {}
 ```
 
@@ -39,8 +39,8 @@ A entidade define o esquema da tabela no PostgreSQL.
 ```typescript
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('usuarios') // Nome da tabela no banco de dados
-export class Usuario {
+@Entity('usuario') // Nome da tabela no banco de dados
+export class UsuarioEntity {
   @PrimaryGeneratedColumn('uuid') // Gera UUID autoincremental
   id: string;
 
@@ -63,34 +63,34 @@ export class Usuario {
 ## 3. Repositories e Injeção de Dependências
 Para utilizar a entidade no Service:
 
-1. **Registrar a entidade no módulo correspondente (`user.module.ts`)**:
+1. **Registrar a entidade no módulo correspondente (`usuario.module.ts`)**:
 ```typescript
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Usuario } from './entities/usuario.entity';
-import { UserService } from './user.service';
+import { UsuarioEntity } from './entities/usuario.entity';
+import { UsuarioService } from './usuario.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Usuario])],
-  providers: [UserService],
-  exports: [UserService], // Exporta se outros módulos precisarem usar
+  imports: [TypeOrmModule.forFeature([UsuarioEntity])],
+  providers: [UsuarioService],
+  exports: [UsuarioService], // Exporta se outros módulos precisarem usar
 })
-export class UserModule {}
+export class UsuarioModule {}
 ```
 
-2. **Injetar o Repository no Service (`user.service.ts`)**:
+2. **Injetar o Repository no Service (`usuario.service.ts`)**:
 ```typescript
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Usuario } from './entities/usuario.entity';
-import { CreateUserDto } from './dtos/create-user.dto';
+import { UsuarioEntity } from './entities/usuario.entity';
+import { CriarUsuarioDto } from './dtos/criar-usuario.dto';
 
 @Injectable()
-export class UserService {
+export class UsuarioService {
   constructor(
-    @InjectRepository(Usuario)
-    private readonly usuarioRepository: Repository<Usuario>,
+    @InjectRepository(UsuarioEntity)
+    private readonly usuarioRepository: Repository<UsuarioEntity>,
   ) {}
 }
 ```
@@ -102,7 +102,7 @@ Principais métodos utilizados do `Repository`:
 
 ```typescript
 // 1. Criar e Salvar (Create/Save)
-async criar(dto: CreateUserDto): Promise<Usuario> {
+async criar(dto: CriarUsuarioDto): Promise<UsuarioEntity> {
   // O método create cria apenas a instância da classe, não grava no banco
   const novoUsuario = this.usuarioRepository.create(dto);
   // O save executa o INSERT ou UPDATE no banco
@@ -110,19 +110,19 @@ async criar(dto: CreateUserDto): Promise<Usuario> {
 }
 
 // 2. Buscar Todos (Find)
-async buscarTodos(): Promise<Usuario[]> {
+async buscarTodos(): Promise<UsuarioEntity[]> {
   return await this.usuarioRepository.find();
 }
 
 // 3. Buscar Um (FindOne)
-async buscarPorId(id: string): Promise<Usuario> {
+async buscarPorId(id: string): Promise<UsuarioEntity> {
   const usuario = await this.usuarioRepository.findOne({ where: { id } });
   if (!usuario) throw new NotFoundException('Usuário não encontrado');
   return usuario;
 }
 
 // 4. Mesclar e Salvar (Update)
-async atualizar(id: string, dto: any): Promise<Usuario> {
+async atualizar(id: string, dto: any): Promise<UsuarioEntity> {
   const usuario = await this.buscarPorId(id);
   // O merge copia as propriedades do DTO para a entidade encontrada
   const usuarioAtualizado = this.usuarioRepository.merge(usuario, dto);
@@ -147,34 +147,34 @@ Para mapear chaves estrangeiras entre tabelas:
 - **Entidade do Lado "Muitos" (`aula.entity.ts`)**:
 ```typescript
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Usuario } from '../../user/entities/usuario.entity';
+import { UsuarioEntity } from '../../usuario/entities/usuario.entity';
 
-@Entity('aulas')
-export class Aula {
+@Entity('aula')
+export class AulaEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  materia: string;
+  name: string;
 
   // ManyToOne define que muitas aulas pertencem a um usuário
-  @ManyToOne(() => Usuario, (usuario) => usuario.aulas, {
+  @ManyToOne(() => UsuarioEntity, (usuario) => usuario.listClass, {
     onDelete: 'CASCADE', // Se o usuário for deletado, suas aulas também serão
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ name: 'usuario_id' }) // Especifica o nome da coluna FK no banco
-  usuario: Usuario;
+  @JoinColumn({ name: 'user_id' }) // Especifica o nome da coluna FK no banco
+  user: UsuarioEntity;
 }
 ```
 
 - **Entidade do Lado "Um" (`usuario.entity.ts`)**:
 ```typescript
 import { OneToMany } from 'typeorm';
-import { Aula } from '../../aula/entities/aula.entity';
+import { AulaEntity } from '../../aula/entities/aula.entity';
 
-// Adicione dentro da classe Usuario:
-@OneToMany(() => Aula, (aula) => aula.usuario, { cascade: true })
-aulas: Aula[];
+// Adicione dentro da classe UsuarioEntity:
+@OneToMany(() => AulaEntity, (aula) => aula.user, { cascade: true })
+listClass: AulaEntity[];
 ```
 
 ### Consultando com Campos Vinculados
@@ -182,10 +182,10 @@ Por padrão, o TypeORM não traz dados relacionados. É necessário declarar o a
 
 ```typescript
 // Retorna o usuário trazendo a lista de aulas vinculadas
-async buscarUsuarioComAulas(id: string): Promise<Usuario> {
+async buscarUsuarioComAulas(id: string): Promise<UsuarioEntity> {
   const usuario = await this.usuarioRepository.findOne({
     where: { id },
-    relations: ['aulas'], // Nome do atributo definido no @OneToMany
+    relations: ['listClass'], // Nome do atributo definido no @OneToMany
   });
   if (!usuario) throw new NotFoundException('Usuário não encontrado');
   return usuario;
