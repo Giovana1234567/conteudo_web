@@ -46,8 +46,19 @@ Tanto o **Projeto de Consulta (Backend)** quanto os **Materiais de Aula (ex: Aul
    # Iniciar em modo de desenvolvimento
    npm run start:dev
    ```
-3. **Testar**:
-   - Acesso ao Swagger: [http://localhost:3007/swagger](http://localhost:3007/swagger)
+3. **Inicializar a Aplicação React/Next.js (Frontend)**:
+   Acesse a pasta `/projeto-de-consulta/frontend` e execute:
+   ```bash
+   # Instalar dependências
+   npm install
+   
+   # Iniciar em modo de desenvolvimento
+   npm run dev
+   ```
+4. **Testar**:
+   - Acesso ao Frontend (Portal): [http://localhost:3003](http://localhost:3003) (ou porta indicada no terminal)
+   - Acesso ao Backend Swagger: [http://localhost:3007/swagger](http://localhost:3007/swagger)
+   - Guia de replicação: [guia-frontend.md](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/guides/guia-frontend.md)
 
 ---
 
