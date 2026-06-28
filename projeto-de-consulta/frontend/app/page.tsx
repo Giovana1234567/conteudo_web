@@ -1,18 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import "./home.css";
-
-/**
- * PORTAL PRINCIPAL (INDEX)
- * 
- * Este arquivo serve como menu centralizador de rotas da aplicação frontend.
- * Ele contém atalhos para todas as páginas modulares de criação, listagem e atualização.
- * Na prova, você pode copiar os arquivos individuais das pastas (autenticacao, usuario, aula, estudante)
- * para obter funcionalidades isoladas e funcionais de forma imediata.
- */
-"use client";
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
