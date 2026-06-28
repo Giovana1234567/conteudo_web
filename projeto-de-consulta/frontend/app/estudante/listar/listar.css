@@ -1,69 +1,59 @@
 /* listar.css */
 .listar-container {
-  max-width: 1200px;
-  margin: 3rem auto;
-  padding: 1.5rem;
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.listar-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  background: #ffffff;
 }
 
 .listar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 5px;
 }
 
 .listar-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .btn-new {
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  background: var(--primary-accent);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: background-color 0.2s ease;
-}
-
-.btn-new:hover {
-  background: var(--primary-hover);
+  padding: 6px 12px;
+  background: var(--primary);
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
 }
 
 .student-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
 }
 
 .student-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   overflow: hidden;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.student-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-accent);
 }
 
 .student-image-container {
   width: 100%;
-  height: 200px;
-  position: relative;
-  background: rgba(15, 23, 42, 0.5);
-  border-bottom: 1px solid var(--border-color);
-  overflow: hidden;
+  height: 140px;
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--border);
 }
 
 .student-img {
@@ -73,80 +63,64 @@
 }
 
 .student-info {
-  padding: 1.5rem;
+  padding: 10px;
   flex: 1;
 }
 
 .student-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .student-meta {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
 }
 
 .student-meta span {
-  font-weight: 500;
-  color: var(--text-primary);
+  font-weight: bold;
+  color: var(--text);
 }
 
 .student-actions {
   display: flex;
-  padding: 1rem 1.5rem;
-  background: rgba(15, 23, 42, 0.3);
-  border-top: 1px solid var(--border-color);
-  gap: 0.75rem;
+  gap: 5px;
+  padding: 10px;
+  background: #f8fafc;
+  border-top: 1px solid var(--border);
 }
 
 .btn-edit {
   flex: 1;
-  padding: 0.5rem;
-  border-radius: 6px;
-  background: var(--success-accent);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 4px;
+  background: var(--success);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
   text-align: center;
-  transition: background-color 0.2s ease;
-}
-
-.btn-edit:hover {
-  background: var(--success-hover);
 }
 
 .btn-delete {
   flex: 1;
-  padding: 0.5rem;
-  border-radius: 6px;
-  background: var(--danger-accent);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-
-.btn-delete:hover {
-  background: var(--danger-hover);
+  padding: 4px;
+  background: var(--danger);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .error-message {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: var(--danger-accent);
-  padding: 0.75rem;
-  border-radius: 8px;
+  color: var(--danger);
   font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .no-data {
   text-align: center;
-  color: var(--text-secondary);
-  padding: 3rem;
-  font-size: 1.1rem;
+  color: var(--text-muted);
+  padding: 20px;
 }

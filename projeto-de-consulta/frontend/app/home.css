@@ -1,88 +1,60 @@
 /* home.css */
 .portal-container {
-  max-width: 1200px;
-  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
 }
 
 .portal-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
 }
 
 .portal-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #818cf8, #c084fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 0.8rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .portal-subtitle {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 5px;
 }
 
 .modules-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
 }
 
 .module-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.module-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-accent);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-}
-
-.module-icon-container {
-  display: inline-flex;
-  padding: 0.8rem;
-  border-radius: 12px;
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--primary-accent);
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 15px;
+  background: #ffffff;
 }
 
 .module-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .links-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
 }
 
 .link-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
+  margin: 6px 0;
+  font-size: 0.95rem;
 }
 
 .link-arrow {
-  color: var(--primary-accent);
+  color: var(--primary);
+  margin-right: 5px;
   font-weight: bold;
 }
