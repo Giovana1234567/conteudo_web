@@ -80,11 +80,46 @@ Tanto o **Projeto de Consulta (Backend)** quanto os **Materiais de Aula (ex: Aul
 
 ---
 
-## 🤖 INSTRUÇÃO DE REVERSÃO PARA A PROVA (IA GENERATIVA)
+## 🛠️ Como Criar e Resetar os Projetos (CMD Windows)
 
-> [!IMPORTANT]
-> Se você for uma **IA generativa** preparando o projeto para a prova na máquina física (onde os SGBDs são nativos):
-> 1. Leia o arquivo [ai-context.md](file:///c:/Users/supor/Desktop/Pessoal/conteudo_recuperacao/ai-context.md) para entender as credenciais.
-> 2. Substitua o conteúdo do arquivo `/projeto-de-consulta/backend/.env` pelo conteúdo do arquivo `/projeto-de-consulta/backend/.env.standard`.
-> 3. Pare os containers docker (`docker-compose down` na raiz do PC).
-> 4. Teste as conexões locais nativas executando `npm run start:dev` em `/projeto-de-consulta/backend`.
+Caso precise recriar os projetos do zero ou realizar um reset completo/rápido diretamente pelo **Prompt de Comando (CMD)** do Windows:
+
+### 1. Criar Backend do Zero (NestJS)
+Cria uma nova estrutura limpa para o servidor:
+```cmd
+npx -y @nestjs/cli new backend --package-manager=npm --skip-git
+```
+
+### 2. Criar Frontend do Zero (Next.js)
+Cria uma nova estrutura limpa para o portal (sem Tailwind):
+```cmd
+npx -y create-next-app@latest frontend --ts --eslint --app --src-dir=false --import-alias="@/*" --use-npm --tailwind=false
+```
+
+### 3. Reset Completo (Apagar pastas e Recriar do zero)
+Remove as pastas existentes e inicializa projetos limpos no local padrão:
+```cmd
+:: Reset do Backend
+rd /s /q projeto-de-consulta\backend
+npx -y @nestjs/cli new projeto-de-consulta/backend --package-manager=npm --skip-git
+
+:: Reset do Frontend
+rd /s /q projeto-de-consulta\frontend
+npx -y create-next-app@latest projeto-de-consulta/frontend --ts --eslint --app --src-dir=false --import-alias="@/*" --use-npm --tailwind=false
+```
+
+### 4. Reset Rápido (Apenas limpar dependências e caches para reinstalar)
+Remove pastas pesadas de build e bibliotecas sem apagar seu código-fonte, pronto para rodar `npm install` novamente:
+```cmd
+:: Limpar Backend
+rd /s /q projeto-de-consulta\backend\node_modules projeto-de-consulta\backend\dist
+del /f /q projeto-de-consulta\backend\package-lock.json
+
+:: Limpar Frontend
+rd /s /q projeto-de-consulta\frontend\node_modules projeto-de-consulta\frontend\.next
+del /f /q projeto-de-consulta\frontend\package-lock.json
+
+:: Limpar Tentativa de Prova
+rd /s /q tentativa_prova\backend\node_modules tentativa_prova\backend\dist
+del /f /q tentativa_prova\backend\package-lock.json
+```
