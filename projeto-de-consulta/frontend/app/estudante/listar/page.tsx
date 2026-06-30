@@ -98,9 +98,9 @@ export default function ListarEstudantesPage() {
               const studentId = est._id || est.id;
               
               // Monta o caminho absoluto da foto servida pelo NestJS
-              const imageSrc = est.photoUrl.startsWith("http") 
-                ? est.photoUrl 
-                : `${API_BASE_URL}${est.photoUrl}`;
+              const imageSrc = est.photoUrl && typeof est.photoUrl === "string"
+                ? (est.photoUrl.startsWith("http") ? est.photoUrl : `${API_BASE_URL}${est.photoUrl}`)
+                : "https://placehold.co/300x200?text=Sem+Foto";
 
               return (
                 <div key={studentId} className="student-card">

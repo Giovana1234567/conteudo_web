@@ -5,7 +5,7 @@
 ## 1. HttpException e Exceções Especializadas
 No NestJS, erros devem ser lançados usando exceções nativas. O framework captura esses erros e os formata em uma resposta JSON apropriada para o cliente.
 
-### Exemplo de lançamento de HttpException
+### Exemplo de lançamento de HttpException em um service 
 ```typescript
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 

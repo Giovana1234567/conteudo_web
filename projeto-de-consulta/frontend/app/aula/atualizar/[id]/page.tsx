@@ -18,16 +18,15 @@ interface PageProps {
  * 2. ENDPOINTS:
  *    - Obter Dados Atuais: 'GET /aula/:id'
  *    - Listar Usuários (Dropdown): 'GET /usuario/all'
- *    - Atualizar Registro: 'PATCH /aula/:id'
- * 3. CAMPOS ENVIADOS: { name, description, duration, userId }
+ *    - Atualizar Registro: 'PUT /aula/:id'
+ * 3. CAMPOS ENVIADOS: { name, status, idUser }
  */
 export default function AtualizarAulaPage({ params }: PageProps) {
   const resolvedParams = use(params);
   const id = resolvedParams.id;
 
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState<number | "">("");
+  const [status, setStatus] = useState<boolean>(true);
   const [userId, setUserId] = useState<number | "">("");
   const [users, setUsers] = useState<any[]>([]);
 
@@ -53,8 +52,7 @@ export default function AtualizarAulaPage({ params }: PageProps) {
         
         console.log("[HTTP RESPONSE] Carregado:", classData);
         setName(classData.name);
-        setDescription(classData.description);
-        setDuration(classData.duration);
+        setStatus(classData.status ?? true);
         setUserId(classData.user ? classData.user.id : "");
       } catch (err: any) {
         console.error("[HTTP ERROR] Inicialização:", err.message);
@@ -78,16 +76,15 @@ export default function AtualizarAulaPage({ params }: PageProps) {
 
     const payload = {
       name,
-      description,
-      duration: duration !== "" ? Number(duration) : undefined,
-      userId: Number(userId),
+      status,
+      idUser: Number(userId),
     };
 
-    console.log(`[HTTP REQUEST] PATCH /aula/${id}:`, payload);
+    console.log(`[HTTP REQUEST] PUT /aula/${id}:`, payload);
 
     try {
       const response = await fetch(`${API_BASE_URL}/aula/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -134,28 +131,18 @@ export default function AtualizarAulaPage({ params }: PageProps) {
             />
           </div>
 
-          {/* DESCRIÇÃO */}
+          {/* STATUS */}
           <div className="form-group">
-            <label className="form-label">Descrição</label>
-            <input
-              type="text"
-              className="form-input"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+            <label className="form-label">Status</label>
+            <select
+              className="form-select"
+              value={status ? "true" : "false"}
+              onChange={(e) => setStatus(e.target.value === "true")}
               required
-            />
-          </div>
-
-          {/* DURAÇÃO */}
-          <div className="form-group">
-            <label className="form-label">Duração (Minutos)</label>
-            <input
-              type="number"
-              className="form-input"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value === "" ? "" : Number(e.target.value))}
-              required
-            />
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
           </div>
 
           {/* SELECIONAR USUÁRIO */}
@@ -170,7 +157,7 @@ export default function AtualizarAulaPage({ params }: PageProps) {
               <option value="">-- Selecione o Usuário --</option>
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
-                  {user.name} ({user.email})
+                  {user.name}
                 </option>
               ))}
             </select>

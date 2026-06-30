@@ -97,8 +97,7 @@ export default function ListarUsuariosPage() {
                 <tr>
                   <th>ID</th>
                   <th>Nome</th>
-                  <th>E-mail</th>
-                  <th>Idade</th>
+                  <th>Status</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -107,8 +106,11 @@ export default function ListarUsuariosPage() {
                   <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.age ?? "N/A"}</td>
+                    <td>
+                      <span className={`status-badge ${user.status ? "active" : "inactive"}`}>
+                        {user.status ? "Ativo" : "Inativo"}
+                      </span>
+                    </td>
                     <td>
                       <div className="action-buttons">
                         <Link href={`/usuario/atualizar/${user.id}`} className="btn-edit">

@@ -21,8 +21,7 @@ import "./criar.css";
  */
 export default function CriarUsuarioPage() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState<number | "">("");
+  const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
@@ -34,8 +33,7 @@ export default function CriarUsuarioPage() {
 
     const payload = {
       name,
-      email,
-      age: age !== "" ? Number(age) : undefined,
+      status,
     };
 
     console.log("[HTTP REQUEST] POST /usuario:", payload);
@@ -90,29 +88,18 @@ export default function CriarUsuarioPage() {
             />
           </div>
 
-          {/* EMAIL */}
+          {/* STATUS */}
           <div className="form-group">
-            <label className="form-label">E-mail</label>
-            <input
-              type="email"
-              className="form-input"
-              placeholder="Ex: joao@esucri.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <label className="form-label">Status</label>
+            <select
+              className="form-select"
+              value={status ? "true" : "false"}
+              onChange={(e) => setStatus(e.target.value === "true")}
               required
-            />
-          </div>
-
-          {/* IDADE */}
-          <div className="form-group">
-            <label className="form-label">Idade (Opcional)</label>
-            <input
-              type="number"
-              className="form-input"
-              placeholder="Ex: 25"
-              value={age}
-              onChange={(e) => setAge(e.target.value === "" ? "" : Number(e.target.value))}
-            />
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
           </div>
 
           <button type="submit" className="btn-submit">

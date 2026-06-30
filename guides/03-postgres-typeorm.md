@@ -30,6 +30,28 @@ import { TypeOrmModule } from '@nestjs/typeorm';
  })
 export class AppModule {}
 ```
+ou sem .env
+
+```typescript
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    TypeOrmModule.forRoot({
+        type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'faculdade_db',
+      autoLoadEntities: true, // Carrega entities automaticamente
+      synchronize: true,     // Sincroniza tabelas no banco (NÃO usar em produção)
+    }),
+  ],
+ })
+export class AppModule {}
+```
 
 ---
 

@@ -26,4 +26,10 @@ export class EstudanteEntity {
     type: 'number',
   })
   age: number;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  photoUrl?: string;
 }

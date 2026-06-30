@@ -17,4 +17,8 @@ export class CriarEstudanteDto {
   @IsNumber()
   @IsNotEmpty()
   age: number;
+
+  @IsString()
+  @IsOptional()
+  photoUrl?: string;
 }

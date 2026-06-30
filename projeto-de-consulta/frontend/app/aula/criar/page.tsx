@@ -24,8 +24,7 @@ import "./criar.css";
  */
 export default function CriarAulaPage() {
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState<number | "">("");
+  const [status, setStatus] = useState<boolean>(true);
   const [userId, setUserId] = useState<number | "">("");
   const [users, setUsers] = useState<any[]>([]);
 
@@ -65,9 +64,8 @@ export default function CriarAulaPage() {
 
     const payload = {
       name,
-      description,
-      duration: duration !== "" ? Number(duration) : undefined,
-      userId: Number(userId), // Envia a FK associada
+      status,
+      idUser: Number(userId),
     };
 
     console.log("[HTTP REQUEST] POST /aula:", payload);
@@ -122,30 +120,18 @@ export default function CriarAulaPage() {
             />
           </div>
 
-          {/* DESCRIÇÃO */}
+          {/* STATUS */}
           <div className="form-group">
-            <label className="form-label">Descrição</label>
-            <input
-              type="text"
-              className="form-input"
-              placeholder="Ex: Módulos, Controllers e CLI"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+            <label className="form-label">Status</label>
+            <select
+              className="form-select"
+              value={status ? "true" : "false"}
+              onChange={(e) => setStatus(e.target.value === "true")}
               required
-            />
-          </div>
-
-          {/* DURAÇÃO */}
-          <div className="form-group">
-            <label className="form-label">Duração (Minutos)</label>
-            <input
-              type="number"
-              className="form-input"
-              placeholder="Ex: 60"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value === "" ? "" : Number(e.target.value))}
-              required
-            />
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
           </div>
 
           {/* USUÁRIO ASSOCIADO (CHAVE ESTRANGEIRA / FOREIGN KEY) */}
@@ -160,7 +146,7 @@ export default function CriarAulaPage() {
               <option value="">-- Selecione o Usuário --</option>
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
-                  {user.name} ({user.email})
+                  {user.name}
                 </option>
               ))}
             </select>

@@ -35,6 +35,12 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
   const [success, setSuccess] = useState("");
   const router = useRouter();
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
   // 1. CARREGAR DADOS ATUAIS DO ESTUDANTE
   useEffect(() => {
     const fetchStudent = async () => {
@@ -51,7 +57,7 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
         setName(data.name);
         setAge(data.age);
         setCourseId(data.courseId);
-        setPhotoUrl(data.photoUrl);
+        setPhotoUrl(data.photoUrl || "");
       } catch (err: any) {
         console.error("[HTTP ERROR] Carregamento:", err.message);
         setError(err.message);
@@ -60,12 +66,6 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
 
     if (id) fetchStudent();
   }, [id]);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
 
   // 2. ENVIAR DADOS ATUALIZADOS
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +76,6 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
     try {
       let finalPhotoUrl = photoUrl;
 
-      // ETAPA 2.1: SE SELECIONOU UM NOVO ARQUIVO, REALIZA O UPLOAD PRIMEIRO
       if (selectedFile) {
         console.log("[HTTP REQUEST] POST /estudante/upload (Novo arquivo)");
         const uploadData = new FormData();
@@ -97,7 +96,6 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
         finalPhotoUrl = uploadResult.url;
       }
 
-      // ETAPA 2.2: SALVA OS DADOS COM A FOTO CORRETA
       const studentPayload = {
         name,
         age: age !== "" ? Number(age) : undefined,
@@ -133,7 +131,9 @@ export default function AtualizarEstudantePage({ params }: PageProps) {
     }
   };
 
-  const imageSrc = photoUrl.startsWith("http") ? photoUrl : `${API_BASE_URL}${photoUrl}`;
+  const imageSrc = photoUrl && typeof photoUrl === "string"
+    ? (photoUrl.startsWith("http") ? photoUrl : `${API_BASE_URL}${photoUrl}`)
+    : "https://placehold.co/300x200?text=Sem+Foto";
 
   return (
     <div className="atualizar-container">

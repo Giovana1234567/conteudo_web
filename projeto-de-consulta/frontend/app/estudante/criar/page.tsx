@@ -44,32 +44,29 @@ export default function CriarEstudantePage() {
     setError("");
     setSuccess("");
 
-    if (!selectedFile) {
-      setError("Você deve selecionar uma foto de perfil.");
-      return;
-    }
-
     try {
-      // ETAPA 1: FAZER O UPLOAD DA IMAGEM
-      console.log("[HTTP REQUEST] POST /estudante/upload (Multipart/Form-Data)");
-      const uploadData = new FormData();
-      uploadData.append("file", selectedFile); // "file" deve bater com o nome no backend NestJS
+      let photoUrl = undefined;
 
-      const uploadResponse = await fetch(`${API_BASE_URL}/estudante/upload`, {
-        method: "POST",
-        body: uploadData, // ATENÇÃO: NÃO envie headers de Content-Type aqui!
-      });
+      if (selectedFile) {
+        console.log("[HTTP REQUEST] POST /estudante/upload (Multipart/Form-Data)");
+        const uploadData = new FormData();
+        uploadData.append("file", selectedFile);
 
-      const uploadResult = await uploadResponse.json();
+        const uploadResponse = await fetch(`${API_BASE_URL}/estudante/upload`, {
+          method: "POST",
+          body: uploadData,
+        });
 
-      if (!uploadResponse.ok) {
-        throw new Error(uploadResult.message || "Falha ao realizar upload da foto");
+        const uploadResult = await uploadResponse.json();
+
+        if (!uploadResponse.ok) {
+          throw new Error(uploadResult.message || "Falha ao realizar upload da foto");
+        }
+
+        console.log("[HTTP RESPONSE] Upload com sucesso:", uploadResult);
+        photoUrl = uploadResult.url;
       }
 
-      console.log("[HTTP RESPONSE] Upload com sucesso:", uploadResult);
-      const photoUrl = uploadResult.url; // URL da foto salva no servidor
-
-      // ETAPA 2: SALVAR A ENTIDADE ESTUDANTE NO MONGODB
       const studentPayload = {
         name,
         age: age !== "" ? Number(age) : undefined,
@@ -156,13 +153,12 @@ export default function CriarEstudantePage() {
 
           {/* UPLOAD FOTO (MULTER INTEGRATION) */}
           <div className="form-group">
-            <label className="form-label">Foto de Perfil</label>
+            <label className="form-label">Foto de Perfil (Opcional)</label>
             <input
               type="file"
               accept="image/*"
               className="form-file"
               onChange={handleFileChange}
-              required
             />
           </div>
 

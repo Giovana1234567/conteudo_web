@@ -41,7 +41,7 @@ nest g s nome-service
 
 ## 3. Estrutura do Projeto & `main.ts`
 A estrutura básica inicial do NestJS conta com:
-- `main.ts`: Arquivo de entrada do sistema. Inicializa o Nest com o módulo principal (`AppModule`).
+- `main.ts`: Arquivo de entrada do sistema. Inicializa o Nest com o módulo principal (`AppModule`). Tambem é onde fico uma parte da validação.
 - `app.module.ts`: O módulo raiz da aplicação.
 - `app.controller.ts`: Lida com requisições HTTP básicas.
 - `app.service.ts`: Lógica de negócio básica.

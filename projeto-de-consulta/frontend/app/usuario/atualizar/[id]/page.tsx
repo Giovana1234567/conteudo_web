@@ -30,8 +30,7 @@ export default function AtualizarUsuarioPage({ params }: PageProps) {
   const id = resolvedParams.id;
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState<number | "">("");
+  const [status, setStatus] = useState<boolean>(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
@@ -50,8 +49,7 @@ export default function AtualizarUsuarioPage({ params }: PageProps) {
 
         console.log("[HTTP RESPONSE] Carregado:", data);
         setName(data.name);
-        setEmail(data.email);
-        setAge(data.age !== undefined && data.age !== null ? data.age : "");
+        setStatus(data.status ?? true);
       } catch (err: any) {
         console.error("[HTTP ERROR] Carregamento:", err.message);
         setError(err.message);
@@ -69,15 +67,14 @@ export default function AtualizarUsuarioPage({ params }: PageProps) {
 
     const payload = {
       name,
-      email,
-      age: age !== "" ? Number(age) : null,
+      status,
     };
 
-    console.log(`[HTTP REQUEST] PATCH /usuario/${id}:`, payload);
+    console.log(`[HTTP REQUEST] PUT /usuario/${id}:`, payload);
 
     try {
       const response = await fetch(`${API_BASE_URL}/usuario/${id}`, {
-        method: "PATCH", // Mude para PUT se a sua rota da prova usar PUT
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -124,27 +121,18 @@ export default function AtualizarUsuarioPage({ params }: PageProps) {
             />
           </div>
 
-          {/* EMAIL */}
+          {/* STATUS */}
           <div className="form-group">
-            <label className="form-label">E-mail</label>
-            <input
-              type="email"
-              className="form-input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <label className="form-label">Status</label>
+            <select
+              className="form-select"
+              value={status ? "true" : "false"}
+              onChange={(e) => setStatus(e.target.value === "true")}
               required
-            />
-          </div>
-
-          {/* IDADE */}
-          <div className="form-group">
-            <label className="form-label">Idade</label>
-            <input
-              type="number"
-              className="form-input"
-              value={age}
-              onChange={(e) => setAge(e.target.value === "" ? "" : Number(e.target.value))}
-            />
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
           </div>
 
           <button type="submit" className="btn-submit">

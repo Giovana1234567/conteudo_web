@@ -96,8 +96,7 @@ export default function ListarAulasPage() {
                 <tr>
                   <th>ID</th>
                   <th>Título</th>
-                  <th>Descrição</th>
-                  <th>Duração</th>
+                  <th>Status</th>
                   <th>Responsável (FK)</th>
                   <th>Ações</th>
                 </tr>
@@ -107,9 +106,12 @@ export default function ListarAulasPage() {
                   <tr key={aula.id}>
                     <td>{aula.id}</td>
                     <td>{aula.name}</td>
-                    <td>{aula.description}</td>
-                    <td>{aula.duration} min</td>
-                    <td>{aula.user ? `${aula.user.name} (${aula.user.email})` : "N/A"}</td>
+                    <td>
+                      <span className={`status-badge ${aula.status ? "active" : "inactive"}`}>
+                        {aula.status ? "Ativo" : "Inativo"}
+                      </span>
+                    </td>
+                    <td>{aula.user ? aula.user.name : "N/A"}</td>
                     <td>
                       <div className="action-buttons">
                         <Link href={`/aula/atualizar/${aula.id}`} className="btn-edit">
